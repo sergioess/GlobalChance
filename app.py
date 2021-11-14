@@ -50,10 +50,10 @@ def load_user(id):
 # def img(nombreFoto):
 #     return send_from_directory(app.config['CARPETA_IMG'], nombreFoto)
 
-# @app.route('/uplbanner/<nombreFoto>')
-# def uplproductos(nombreFoto):
-#     # print(app.config['CARPETA'])
-#     return send_from_directory(app.config['CARPETA_PTOS'], nombreFoto)
+@app.route('/banner/<nombreFoto>')
+def uplproductos(nombreFoto):
+    # print(app.config['CARPETA'])
+    return send_from_directory(app.config['CARPETA_PTOS'], nombreFoto)
 
 
 

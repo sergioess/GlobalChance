@@ -18,12 +18,12 @@ class Banner(database.Model):
 
 #este es el toString personalizado
     def __str__(self):
-        return f"<Banner {self.id} {self.fecha_registro} {self.id_ciudad} {self.Banner_aire} {self.id_usuario} >"
+        return f"<Banner {self.id} {self.archivo} {self.titulo} {self.descripcion} {self.activo} >"
 
-    def __init__(self, archivo, titulo, descipcion, activo):
+    def __init__(self, archivo: str, titulo: str, descripcion: str, activo):
         self.archivo = archivo
         self.titulo = titulo
-        self.descipcion = descipcion
+        self.descripcion = descripcion
         self.activo = activo
         
 
@@ -35,6 +35,9 @@ class Banner(database.Model):
 
     def get_by_id(id):
         return Banner.query.filter_by(id=id).first()
+
+    def get_Active():
+        return Banner.query.filter_by(activo=True).all()        
 
 
     def save(self):
@@ -53,3 +56,9 @@ class Banner(database.Model):
         bannerModifica.activo = False
 
         database.session.commit()
+
+    
+    def inactivaBanner(id):
+        bannerInactiva = Banner.query.filter_by(id=id).first()
+        bannerInactiva.activo = False
+        database.session.commit()        

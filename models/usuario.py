@@ -64,13 +64,19 @@ class Usuario(UserMixin,database.Model):
         database.session.commit()
         return usuarioActualiza
 
-    def delete(self):
+    def delete(id):
         #print(self.id)
-        usuarioActualiza = Usuario.query.filter_by(id=self.id).first()
+        usuarioActualiza = Usuario.query.filter_by(id=id).first()
         usuarioActualiza.activo = 0
         database.session.commit()
         return 1    
 
+    @staticmethod
+    def usuarioEditor(id):
+        usuarioActualiza = Usuario.query.filter_by(id=id).first()
+        usuarioActualiza.perfil = 2
+        database.session.commit()
+        return usuarioActualiza 
         
     # @staticmethod
     # def activar(id):

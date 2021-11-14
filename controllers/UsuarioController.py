@@ -56,8 +56,8 @@ def update():
 
 # @login_required
 def destroy(usuario_id_usuario):
-    usuario = Usuario(usuario_id_usuario, "User", "User", "User", 1)
-    Usuario.delete(usuario)
+
+    Usuario.delete(usuario_id_usuario)
     return redirect('/usuario')
 
 # @login_required
@@ -84,3 +84,7 @@ def activar_user(usuario_id_usuario):
     lista_usuarios_inac=Usuario.get_all_inactivo()
     return render_template('/usuario/inactivos.html', usuarios=lista_usuarios_inac)
 
+
+def usuarioEditor(usuario_id_usuario):
+    Usuario.usuarioEditor(usuario_id_usuario)
+    return redirect('/usuario')

@@ -36,13 +36,13 @@
   </div>
   <div class="border border-dark border-2 p-0">
     <div class="card-header" style="background-color: #011f4b;">
-      <div class="d-flex justify-content-between">
+      <!-- <div class="d-flex justify-content-between">
         <a class="btn btn-light btn-md" href="#" data-toggle="modal" data-target="#modalcreate">
           <i class="fas fa-plus-circle"></i> Nuevo Usuario</a>
 
 
 
-      </div>
+      </div> -->
 
     </div>
     <div class="table-responsive bg-white container pt-2">
@@ -67,7 +67,18 @@
 
             <td>{{usuario['nombre']}}</td>
             <td>{{usuario['correo']}}</td>
-            <td>{{usuario['perfil']}}</td>
+            <td>
+              <!-- {{usuario['perfil']}} -->
+              {% if usuario['perfil']== 1 %}
+              Usuario
+              {%else %}
+              {% if usuario['perfil']== 2 %}
+              Editor
+              {%else %}
+              Administrador
+              {%endif%}
+              {%endif%}
+            </td>
             <td>
               {% if usuario['is_active']== True %}
               Habilitado
@@ -86,9 +97,9 @@
                 title="Eliminar Usuario" ">            
                 <i class=" far fa-trash-alt"></i></a>
               |
-              <a onclick="return confirm('Desea activar el Usuario?')" class="btn btn-success btn-sm py-0"
-                href="/usuario/activar/{{usuario['id']}}" data-toggle="tooltip" data-placement="top"
-                title="Activar Usuario" ">            
+              <a onclick="return confirm('Desea cambiar el perfil a Editor?')" class="btn btn-success btn-sm py-0"
+                href="/usuario/editor/{{usuario['id']}}" data-toggle="tooltip" data-placement="top"
+                title="Perfil Editor" ">            
                   <i class=" fas fa-check-circle"></i></a>
             </td>
           </tr>

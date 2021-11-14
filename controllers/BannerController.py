@@ -16,28 +16,29 @@ app.config.from_object('config')
 # con este se listan los benners
 # @login_required
 def index():
-    bannersLista = Banner.get_all()
+    bannersLista = Banner.get_Active()
     print(bannersLista)
     # return render_template('/banner/index.html', banner=bannersLista)
-    return render_template('/banner/index.html')    
+    return render_template('/banner/index.html', bannersLista = bannersLista)    
 
 
 
 # @login_required
 def store():
-    _archivo = request.form.get('txtFoto')
+    _archivo = request.files.get('txtFoto')
     _titulo = request.form.get('txtTitulo')
     _descripcion = request.form.get('txtDescripcion')
-		
+	
     now=datetime.now()
     tiempo = now.strftime("%Y%H%M%S")
 
     if(_archivo.filename != ''):
+        print('El Archivo es: ' , _archivo)
         nuevoNombreFoto = tiempo + _archivo.filename
         _archivo.save("banner/" + nuevoNombreFoto)
 
    
-    banner = Banner(_archivo, _titulo, _descripcion, True)
+    banner = Banner(nuevoNombreFoto, _titulo, _descripcion, True)
     print(banner)
     if banner.save():
         return redirect('/producto')
@@ -49,4 +50,8 @@ def store():
 # con este método se elimina un registro
 def destroy(banner_id):
     Banner.delete(banner_id)
+    return redirect('/banner')
+
+def inactivaBanner(banner_id):
+    Banner.inactivaBanner(banner_id)
     return redirect('/banner')

@@ -19,38 +19,38 @@
   </div>
   <br />
   <div class="row justify-content-center">
-    <h2>Usuarios</h2>
+    <h2>Banner</h2>
   </div>
   <div class="border border-dark border-2 p-0">
     <div class="card-header" style="background-color: #011f4b;">
       <div class="d-flex justify-content-between">
         <a class="btn btn-light btn-md" href="#" data-toggle="modal" data-target="#modalcreate">
-          <i class="fas fa-plus-circle"></i> Nuevo Usuario</a>
-
+          <i class="fas fa-plus-circle"></i> Nuevo Banner</a>
+        {% include '/banner/modal/create.html' %}
 
 
       </div>
 
     </div>
-    <div class="table-responsive bg-white container pt-2">
+    <div class="row p-2">
+      {% for banner in bannersLista %}
+
+      <div class="col col-sm-12 col-md-6 col-lg-4 mt-sm-2">
+        <div class="card ">
+          <img class=" img-responsive" src="/banner/{{banner.archivo}}" alt="">
+          <div class="card-body">
+            <h5 class="card-title">{{banner.titulo }}</h5>
+            <p class="card-text">{{banner.descripcion }}</p>
+            <a onclick="return confirm('Desea ocultar el banner?')" class="btn btn-danger btn-sm py-0"
+              href="/banner/inactiva/{{banner.id}}">
+              Ocultar</a>
+          </div>
+        </div>
+
+      </div>
+      {% endfor %}
 
 
-      <table class="table table-light p-0 my-0 " id="example">
-        <thead>
-          <tr>
-            <td>#</td>
-            <td>Nombre</td>
-            <td>Correo</td>
-            <td>Perfil</td>
-            <td>Estado</td>
-            <td>Acciones</td>
-          </tr>
-        </thead>
-
-        <tbody>
-
-        </tbody>
-      </table>
     </div>
   </div>
 </div>
