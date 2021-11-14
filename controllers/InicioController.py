@@ -12,13 +12,15 @@ from forms import LoginForm, RegistroForm
 from flask_mail import  Message
 from flask_session import Session
 
+
+  
 # @login_required
 def home():
     # print("Actual logueado", current_user)
-    user = Usuario.query.filter_by(id=current_user.id).first()
+    # user = Usuario.query.filter_by(id=current_user.id).first()
 
 
-    return render_template('/home.html', totalcategoria=categoriasTotal, totalproducto=productosTotal, nombretienda = nombredetienda, nittienda = nitdetienda, direcciontienda = direcciondetienda, telefonotienda = telefonodetienda, inactivos=usuariosInactivos) 
+    return render_template('/home.html') 
 
 def index():
     
@@ -36,7 +38,10 @@ def frmRegistrar():
             
             _password = bcrypt.generate_password_hash(registro.password.data).decode('utf-8')
 
-            usuario = Usuario(1,_nombre, _correo, _password, 1)
+            usuario = Usuario()
+            usuario.nombre = _nombre
+            usuario.correo = _correo
+            usuario.password = _password
             usuario.activo = 1
             print(usuario)
             usuario.save()
@@ -61,7 +66,7 @@ def frmlogin():
         passIngresado=bcrypt.generate_password_hash('_password').decode('utf-8')
         print("Ingresado", _nombre, _password,passIngresado)
         print("Ingresado", passIngresado)
-        user = Usuario.query.filter_by(nombre_usuario=_nombre).first()
+        user = Usuario.query.filter_by(correo=_nombre).first()
         
         print(user)
         if not user:
@@ -73,7 +78,7 @@ def frmlogin():
             print("Encontrado")
 
         
-            print("Usuario",user.nombre, user.apellidos,  passUsuario)
+            print("Usuario",user.nombre,  passUsuario)
         if user and bcrypt.check_password_hash(user.password, login_form.password.data):
             flash('Bienvenido de Regreso', 'success')
 
@@ -105,15 +110,15 @@ def logout():
 def login(nombre):
  
     print(bcrypt.generate_password_hash('_password'))
-    #print(_nombre)
-    user = Usuario.query.filter_by(nombre_usuario=nombre).first()
+    print(nombre)
+    user = Usuario.query.filter_by(correo=nombre).first()
     #print(user)
 
     login_user(user)
 
     if(user.perfil==3):
         return redirect('/usuario')    
-    return render_template('home.html', totalcategoria=categoriasTotal, totalproducto=productosTotal, nombretienda = nombredetienda, nittienda = nitdetienda, direcciontienda = direcciondetienda, telefonotienda = telefonodetienda)
+    return render_template('home.html')
     #return 'You are now logged in!'       
 
 # def mailtoadmin():

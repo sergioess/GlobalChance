@@ -19,14 +19,7 @@ class Usuario(UserMixin,database.Model):
     def __str__(self):
         return f"<Usuario {self.id} {self.nombre} {self.correo} {self.password} {self.activo} {self.perfil} >"
 
-    def __init__(self, id):
-            self.id = id
-
-    def __init__(self, id, nombre, correo,  password, perfil):
-        self.id = id
-        self.nombre = nombre
-        self.correo = correo
-        self.password = password
+    def __init__(self):
         self.activo = 1
         self.perfil = 1
 
@@ -55,7 +48,7 @@ class Usuario(UserMixin,database.Model):
                 return False
             else:
                 print("Usuario nuevo")
-                self.is_active=False
+                
                 database.session.add(self)
                 database.session.commit()
                 return True

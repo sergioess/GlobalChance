@@ -1,0 +1,103 @@
+{% include '/header.html' %}
+{% include '/nav.html' %}
+
+<script type="text/javascript">
+  function Validate() {
+    var password = document.getElementById("txtPassword").value;
+    var confirmPassword = document.getElementById("txtConfirmarPassword").value;
+    if (password != confirmPassword) {
+      alert("La contraseña no coincide, favor intentar nuevamente");
+      return false;
+    }
+    return true;
+  }
+</script>
+
+
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-11 mt-2">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages%}
+      {% for category, msg in messages %}
+      <div class="alert alert-{{category}}">
+        {{ msg }}
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+
+    </div>
+  </div>
+  <br />
+  <div class="row justify-content-center">
+    <h2>Usuarios</h2>
+  </div>
+  <div class="border border-dark border-2 p-0">
+    <div class="card-header" style="background-color: #011f4b;">
+      <div class="d-flex justify-content-between">
+        <a class="btn btn-light btn-md" href="#" data-toggle="modal" data-target="#modalcreate">
+          <i class="fas fa-plus-circle"></i> Nuevo Usuario</a>
+
+
+
+      </div>
+
+    </div>
+    <div class="table-responsive bg-white container pt-2">
+
+
+      <table class="table table-light p-0 my-0 " id="example">
+        <thead>
+          <tr>
+            <td>#</td>
+            <td>Nombre</td>
+            <td>Correo</td>
+            <td>Perfil</td>
+            <td>Estado</td>
+            <td>Acciones</td>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for usuario in usuarios %}
+          <tr>
+            <td>{{loop.index0 + 1}}</td>
+
+            <td>{{usuario['nombre']}}</td>
+            <td>{{usuario['correo']}}</td>
+            <td>{{usuario['perfil']}}</td>
+            <td>
+              {% if usuario['is_active']== True %}
+              Habilitado
+              {%else %}
+              Inactivo
+              {%endif%}
+            </td>
+            <td class="text-nowrap">
+              <a class="btn btn-warning btn-sm py-0" href="#" data-toggle="modal"
+                data-target="#modaledit{{usuario['id']}}" data-toggle="tooltip" data-placement="top"
+                title="Editar Usuario">
+                <i class="far fa-edit"></i></a>
+              |
+              <a onclick="return confirm('Desea borrar el Usuario?')" class="btn btn-danger btn-sm py-0"
+                href="/usuario/destroy/{{usuario['id']}}" data-toggle="tooltip" data-placement="top"
+                title="Eliminar Usuario" ">            
+                <i class=" far fa-trash-alt"></i></a>
+              |
+              <a onclick="return confirm('Desea activar el Usuario?')" class="btn btn-success btn-sm py-0"
+                href="/usuario/activar/{{usuario['id']}}" data-toggle="tooltip" data-placement="top"
+                title="Activar Usuario" ">            
+                  <i class=" fas fa-check-circle"></i></a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+{% include '/footer.html' %}

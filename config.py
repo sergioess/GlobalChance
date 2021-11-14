@@ -7,7 +7,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 # Enable debug mode.
 DEBUG = True
 
-SQLALCHEMY_DATABASE_URI = 'postgres://soauksyjoprrtk:298d2af34d644108c57364bffccc3a3d35aea9537a3f09fb57d2d3f47ad1f8f9@ec2-44-198-236-169.compute-1.amazonaws.com:5432/df25gu85pecij8'
+SQLALCHEMY_DATABASE_URI = 'postgresql://soauksyjoprrtk:298d2af34d644108c57364bffccc3a3d35aea9537a3f09fb57d2d3f47ad1f8f9@ec2-44-198-236-169.compute-1.amazonaws.com:5432/df25gu85pecij8'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 CARPETA_IMG = os.path.join('img')
@@ -24,5 +24,3 @@ MAIL_USE_SSL = False
 SESSION_TYPE = "filesystem"
 SESSION_PERMANENT = False
 
-
-# conexion

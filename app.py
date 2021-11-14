@@ -24,10 +24,12 @@ mail = Mail(app)
 from models.usuario import Usuario
 # #ACA LAS IMPORTACION DE LAS RUTAS
 from routes.inicio_bp import inicio_bp
+from routes.usuario_bp import usuario_bp
 
 
 # #ACA REGISTRAMOS LAS RUTAS
 app.register_blueprint(inicio_bp, url_prefix='/')
+app.register_blueprint(usuario_bp, url_prefix='/usuario')
 
 
 login_manager = LoginManager()
@@ -40,14 +42,14 @@ def load_user(id):
     return Usuario.query.get(int(id))
 
 
-@app.route('/img/<nombreFoto>')
-def img(nombreFoto):
-    return send_from_directory(app.config['CARPETA_IMG'], nombreFoto)
+# @app.route('/img/<nombreFoto>')
+# def img(nombreFoto):
+#     return send_from_directory(app.config['CARPETA_IMG'], nombreFoto)
 
-@app.route('/uplbanner/<nombreFoto>')
-def uplproductos(nombreFoto):
-    # print(app.config['CARPETA'])
-    return send_from_directory(app.config['CARPETA_PTOS'], nombreFoto)
+# @app.route('/uplbanner/<nombreFoto>')
+# def uplproductos(nombreFoto):
+#     # print(app.config['CARPETA'])
+#     return send_from_directory(app.config['CARPETA_PTOS'], nombreFoto)
 
 
 
