@@ -1,4 +1,3 @@
-
 from app import database
 from sqlalchemy import asc, desc
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user

@@ -25,11 +25,15 @@ from models.usuario import Usuario
 # #ACA LAS IMPORTACION DE LAS RUTAS
 from routes.inicio_bp import inicio_bp
 from routes.usuario_bp import usuario_bp
+from routes.banner_bp import banner_bp
+from routes.temperatura_bp import temperatura_bp
 
 
 # #ACA REGISTRAMOS LAS RUTAS
 app.register_blueprint(inicio_bp, url_prefix='/')
 app.register_blueprint(usuario_bp, url_prefix='/usuario')
+app.register_blueprint(banner_bp, url_prefix='/banner')
+app.register_blueprint(temperatura_bp, url_prefix='/temperatura')
 
 
 login_manager = LoginManager()
