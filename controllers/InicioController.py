@@ -25,20 +25,18 @@ def index():
     return render_template('/index.html')
 
 def frmRegistrar():
-    registroTienda = RegistroForm()
+    registro = RegistroForm()
     
-    if registroTienda.validate_on_submit():
+    if registro.validate_on_submit():
         print(registro.nombre.data)
-        _nombre = registroTienda.nombre.data
-        _apellido = registroTienda.apellido.data
-        _correo = registroTienda.correo.data
-        _nombreusuario = registroTienda.nombreusuario.data
-
-        if Usuario.validarUsuario(_nombreusuario):
+        _nombre = registro.nombre.data
+        _correo = registro.correo.data
+        print("El correo es: " + _correo)
+        if Usuario.validarUsuario(_correo):
             
             _password = bcrypt.generate_password_hash(registro.password.data).decode('utf-8')
 
-            usuario = Usuario(_id_usuario,_nombre, _correo, _password,1)
+            usuario = Usuario(1,_nombre, _correo, _password, 1)
             usuario.activo = 1
             print(usuario)
             usuario.save()

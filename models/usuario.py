@@ -22,12 +22,13 @@ class Usuario(UserMixin,database.Model):
     def __init__(self, id):
             self.id = id
 
-    def __init__(self, id, nombre, correo, nombre_usuario, password):
+    def __init__(self, id, nombre, correo,  password, perfil):
         self.id = id
         self.nombre = nombre
         self.correo = correo
         self.password = password
         self.activo = 1
+        self.perfil = 1
 
 
     @staticmethod
@@ -93,8 +94,10 @@ class Usuario(UserMixin,database.Model):
     #     database.session.commit()
 
     @staticmethod
-    def validarUsuario(nombreUsuario):
-        usuario_existente = Usuario.query.filter_by(nombre_usuario=nombreUsuario).first()
+    def validarUsuario(correo_enviado):
+        return True
+        usuario_existente = Usuario.query.filter_by(correo=correo_enviado).first()
+        print(correo_enviado)
         if usuario_existente is not None:
             print("Usuario ya existe en la base de datos")
             return False

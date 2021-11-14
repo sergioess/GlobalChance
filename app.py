@@ -20,6 +20,7 @@ lasession.init_app(app)
 
 database = SQLAlchemy(app)
 mail = Mail(app)
+
 from models.usuario import Usuario
 # #ACA LAS IMPORTACION DE LAS RUTAS
 from routes.inicio_bp import inicio_bp
