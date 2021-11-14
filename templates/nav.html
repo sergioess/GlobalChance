@@ -3,102 +3,118 @@
 <body style="background-color: hsl(205, 42%, 79%)">
     <nav class=" navbar navbar-expand-lg navbar-light shadow-md sticky-top " style="background-color: #03396c">
         {% if current_user.rol == 'Tendero' %}
-            <h3> <a class="nav-link text-light pr-1 font-weight-bold" href="{{ url_for('inicio_bp.home') }}" tabindex="-1" aria-disabled="true" >Mi tienda</a > </h3> 
+        <h3> <a class="nav-link text-light pr-1 font-weight-bold" href="{{ url_for('inicio_bp.home') }}" tabindex="-1"
+                aria-disabled="true">Mi tienda</a> </h3>
         {% else %}
-            <h3> <a class="nav-link text-light pr-1 font-weight-bold" href="{{ url_for('usuario_bp.index') }}" tabindex="-1" aria-disabled="true" >Mi tienda</a > </h3> 
+        <h3> <a class="nav-link text-light pr-1 font-weight-bold" href="{{ url_for('usuario_bp.index') }}" tabindex="-1"
+                aria-disabled="true">Mi tienda</a> </h3>
         {% endif %}
-        <button class="navbar-toggler mb-md-1" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation" > 
-            <span class="navbar-toggler-icon"></span> 
-        </button> 
+        <button class="navbar-toggler mb-md-1" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div id="my-nav" class="collapse navbar-collapse ">
-            
-            <div class="row rounded ml-3 mb-md-1 p-0 align-center">
-                <ul class="navbar-nav mr-auto"> 
-                    
-                    <div class="row rounded ml-3 mb-md-1 "> 
-                        {% if current_user.rol == 'Tendero' %} 
-                            <li class="nav-item col-md"> 
-                                <a class="nav-link pr-1" href="{{ url_for('producto_bp.index') }}" tabindex="-1" aria-disabled="true" style="color: #fffff4" >Productos</a > 
+
+            <div class="row rounded p-0 justify-content-md-between justify-content-sm-left" style="width:100%;">
+                <div class="col-1"></div>
+                <div class="col text-right">
+                    <ul class="navbar-nav mr-5 ">
+
+                        <div class="col rounded ml-5 mb-md-1 ">
+                            {% if current_user.rol == 'Tendero' %}
+                            <li class="nav-item col-md">
+                                <a class="nav-link pr-1" href="{{ url_for('producto_bp.index') }}" tabindex="-1"
+                                    aria-disabled="true" style="color: #fffff4;">Productos</a>
                             </li>
-                            <li class="nav-item col-md"> 
-                                <a class="nav-link pr-1" href="{{ url_for('categoria_bp.index') }}" tabindex="-1" aria-disabled="true" style="color: #fffff4" >Categorias</a >
-                            </li> 
-                            <li class="nav-item col-md"> 
-                                <a class="nav-link pr-1" href="{{ url_for('entrada_bp.index') }}" tabindex="-1" aria-disabled="true" style="color: #fffff4" >Entradas</a > 
-                            </li> 
-                            <li class="nav-item col-md"> 
-                                <a class="nav-link pr-1" href="{{ url_for('salida_bp.index') }}" tabindex="-1" aria-disabled="true" style="color: #fffff4" >Salidas</a > 
-                            </li>           
+                            <li class="nav-item col-md">
+                                <a class="nav-link pr-1" href="{{ url_for('categoria_bp.index') }}" tabindex="-1"
+                                    aria-disabled="true" style="color: #fffff4">Categorias</a>
+                            </li>
+                            <li class="nav-item col-md">
+                                <a class="nav-link pr-1" href="{{ url_for('entrada_bp.index') }}" tabindex="-1"
+                                    aria-disabled="true" style="color: #fffff4">Entradas</a>
+                            </li>
+                            <li class="nav-item col-md">
+                                <a class="nav-link pr-1" href="{{ url_for('salida_bp.index') }}" tabindex="-1"
+                                    aria-disabled="true" style="color: #fffff4">Salidas</a>
+                            </li>
 
-                        {% endif %}
+                            {% endif %}
 
-                        {% if current_user.rol == 'Administrador' %}
+                            {% if current_user.rol == 'Administrador' %}
 
-                            <li class="nav-item col-md"> 
-                                <a class="nav-link pr-1" href="{{ url_for('usuario_bp.index') }}" tabindex="-1" aria-disabled="true" style="color: #fffff4" >Usuarios</a > 
-                            </li> 
-                            <li class="nav-item col-md"> 
-                                <a class="nav-link pr-1" href="{{ url_for('tienda_bp.index') }}" tabindex="-1" aria-disabled="true" style="color: #fffff4" >Tiendas</a > 
-                            </li> 
+                            <li class="nav-item col-md">
+                                <a class="nav-link pr-1" href="{{ url_for('usuario_bp.index') }}" tabindex="-1"
+                                    aria-disabled="true" style="color: #fffff4">Usuarios</a>
+                            </li>
+                            <li class="nav-item col-md">
+                                <a class="nav-link pr-1" href="{{ url_for('tienda_bp.index') }}" tabindex="-1"
+                                    aria-disabled="true" style="color: #fffff4">Tiendas</a>
+                            </li>
 
 
-                        {% endif %}
-                        
-                            <li class="nav-item dropdown col-auto ml-auto pull-right position-relative ">
-                            
-                                <a href="#" class="nav-link dropdown-toggle text-white d-block" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {% endif %}
+
+                            <li class="nav-item dropdown col-auto ml-auto position-relative ">
+
+                                <a href="#" class="nav-link dropdown-toggle text-white " id="dropdown07"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img src="/img/cuenta.svg" class="rounded-circle" width="32" height="32" alt="">
                                     {% if current_user.is_anonymous %}
-    
+
                                     {% else %}
-                                        
-                                        {{ current_user.nombre_usuario }}
-                                        
+
+                                    {{ current_user.nombre_usuario }}
+
                                     {% endif %}
                                 </a>
-                            
-                                <div class="dropdown-menu bg-dark p-0" id="dropdown"aria-labelledby="dropdown07" style=" width:280px">
+
+                                <div class="dropdown-menu bg-dark p-0" id="dropdown" aria-labelledby="dropdown07"
+                                    style=" width:280px">
                                     <div class="container  bg-dark py-2 ">
                                         <div class="col text-white  text-center">
-                                            <img src="/img/cuenta.svg" class="rounded-circle my-3" width="60" height="60" alt="">
+                                            <img src="/img/cuenta.svg" class="rounded-circle my-3" width="60"
+                                                height="60" alt="">
                                             <div class="mt-2"><strong>Perfil</strong> </div>
-                                            <div class="mt-2">{{ current_user.rol }}</div>
-                                            {% if current_user.rol == 'Administrador' %}
-                                                {% if session.inactivos  > 0 %}
-                                                    
-                                                        <h5 class="py-1"><span class="badge  badge-light">{{session.inactivos}}</span> Usuarios por Activar</h5>
-                                                      
-                                                {% endif %}
+                                            <div class="mt-2">{{ current_user.perfil }}</div>
+                                            {% if current_user.perfil == 'Administrador' %}
+
                                             {% endif %}
                                         </div>
                                     </div>
                                     <div class="container bg-light p-1 pt-2 justify-content-center">
                                         <div class="col-12 px-1">
                                             {% if current_user.is_anonymous %}
-                                                <a class="dropdown-item" href="{{ url_for('inicio_bp.frmlogin') }}">Inicia Sesión</a>
+                                            <a class="dropdown-item" href="{{ url_for('inicio_bp.frmlogin') }}">Inicia
+                                                Sesión</a>
                                             {% else %}
-                                                <a class=" btn btn-outline-dark w-100 mb-2" href="{{ url_for('inicio_bp.logout') }}">Cerrar Sesión</a>
+                                            <a class=" btn btn-outline-dark w-100 mb-2"
+                                                href="{{ url_for('inicio_bp.logout') }}">Cerrar Sesión</a>
                                             {% endif %}
                                         </div>
 
                                     </div>
 
 
-    
-                                    
+
+
                                 </div>
                             </li>
-                        
-                        
-                    </div>
-                       
+
+
+                        </div>
 
 
 
-                    
-                </ul>
+
+
+                    </ul>
+                </div>
+
+
+                <div class="col-1"></div>
             </div>
-            
+
 
         </div>
     </nav>
