@@ -24,3 +24,5 @@ MAIL_USE_SSL = False
 SESSION_TYPE = "filesystem"
 SESSION_PERMANENT = False
 
+
+# conexion
