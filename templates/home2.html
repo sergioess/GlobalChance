@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">¡¡Bienvenido hacker!!</h1>
+    <p class="lead">Sabías que la palabra HACKER hace referencia a toda persona que implementa soluciones para cualquier
+        problema, sea informático o no, de manera que estas puedan emplearse de formas innovadoras por quienes las
+        crearon. </p>
+    <hr class="my-8">
+    <h2><strong>¡Tu puedes hackear el mundo combatiendo el calentamiento global!</strong></h2>
+    <a class="btn btn-primary btn-lg" href="{{ url_for('inicio_bp.about') }}" role="button">Leer más</a>
+</div>
+{% endblock %}

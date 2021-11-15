@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-from controllers.InicioController import index, home, frmlogin, logout, login, frmRegistrar
+from controllers.InicioController import index, home, frmlogin, logout, login, frmRegistrar, about, home2, frmlogin2, frmRegistrar2
 # from controllers.InicioController import index, home, frmlogin, logout, login, frmRegistrar
 
 inicio_bp = Blueprint('inicio_bp', __name__, template_folder='templates/')
@@ -9,7 +9,12 @@ inicio_bp.route('/', methods=['GET'])(index)
 inicio_bp.route('/home', methods=['GET'])(home)
 inicio_bp.route('/login', methods=['POST'])(login)
 inicio_bp.route('/logout', methods=['GET'])(logout)
-inicio_bp.route('/frmlogin', methods=["GET", "POST"])(frmlogin)
-inicio_bp.route('/frmregistro', methods=["GET", "POST"])(frmRegistrar)
+# inicio_bp.route('/frmlogin', methods=["GET", "POST"])(frmlogin)
+inicio_bp.route('/frmlogin', methods=[ "POST"])(frmlogin2)
+# inicio_bp.route('/frmregistro', methods=["GET", "POST"])(frmRegistrar)
+inicio_bp.route('/frmregistro', methods=["GET", "POST"])(frmRegistrar2)
 # inicio_bp.route('/mailtoadmin', methods=["GET", "POST"])(mailtoadmin)
+inicio_bp.route('/about', methods=['GET'])(about)
+inicio_bp.route('/home2', methods=['GET'])(home2)
+
 

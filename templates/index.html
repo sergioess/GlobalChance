@@ -1,56 +1,74 @@
 {% include '/header.html' %}
+<script type="text/javascript">
+    function Validate() {
+        var password = document.getElementById("txtPassword2").value;
+        var confirmPassword = document.getElementById("txtConfirmarPassword").value;
+        if (password != confirmPassword) {
+            alert("La contraseña no coincide, favor intentar nuevamente");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+
 </head>
 
 <body style="background-color: hsl(205, 42%, 79%)">
-  <div class="container  col-lg-6 col-md-8">
-    <div class="row justify-content-center">
-      <div class="col-11 mt-2">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages%}
-        {% for category, msg in messages %}
-        <div class="alert alert-{{category}}">
-          {{ msg }}
-        </div>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
 
-      </div>
-    </div>
-    <div class="card card-widget rounded widget-user mt-5">
-      <!-- Add the bg color to the header using any of the bg-* classes -->
-      <div class="widget-user-header bg-info text-center py-4">
-        <h2 class="widget-user-username font-weight-bold">TecnoAmbiental</h2>
-        <h5 class="widget-user-desc">--</h5>
-      </div>
-
-      <div class="card-footer py-4">
+    <main>
         <div class="row justify-content-center">
-          <div class="col-sm-6 col-lg-4 p-0">
+            <div class="col-11 mt-2">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages%}
+                {% for category, msg in messages %}
+                <div class="alert alert-{{category}}">
+                    {{ msg }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
 
-
-            <a class="nav-link" href="{{ url_for('inicio_bp.frmlogin') }}" tabindex="-1" aria-disabled="true">
-              <span class="description-text btn btn-primary w-100">Iniciar Sesion</span>
-            </a>
-
-
-
-          </div>
-
-          <div class="col-sm-6  col-lg-4 p-0">
-
-            <a class="nav-link" href="{{ url_for('inicio_bp.frmRegistrar') }}" tabindex="-1" aria-disabled="true">
-              <span class="description-text btn btn-secondary w-100">Registrate</span>
-            </a>
-
-
-
-
-          </div>
-
+            </div>
         </div>
-        <!-- /.row -->
-      </div>
-    </div>
-  </div>
-  {% include '/footer.html' %}
+        <div class="contenedor__todo">
+            <div class="caja__trasera">
+                <div class="caja__trasera-login">
+                    <h3>¿Ya tienes una cuenta?</h3>
+                    <p>Inicia sesión para entrar en la página</p>
+                    <button id="btn__iniciar-sesion">Iniciar Sesión</button>
+                </div>
+                <div class="caja__trasera-register">
+                    <h3>¿Aún no tienes una cuenta?</h3>
+                    <p>Regístrate aquí e inicia sesión</p>
+                    <button id="btn__registro-usuario">Registrarse</button>
+                </div>
+            </div>
+            <!--Formularios de ingreso y registro-->
+            <div class="contenedor__login-register">
+                <!--Ingreso-->
+                <form method="POST" action="{{ url_for('inicio_bp.frmlogin2') }}" class="formulario__login">
+                    <h2>Iniciar sesión</h2>
+                    <input type="text" name="txtCorreo" id="txtCorreo" placeholder="Correo electrónico">
+                    <input type="password" name="txtPassword" id="txtPassword" placeholder="Contraseña">
+                    <button>Ingresar</button>
+                </form>
+                <form method="POST" action="{{ url_for('inicio_bp.frmRegistrar2') }}" class="formulario__register"
+                    onsubmit="return Validate()">
+
+
+                    <!--Registro-->
+                    <h2>Registrarse</h2>
+                    <input type="text" name="txtNombre" id="txtNombre" placeholder="Nombre completo">
+                    <input type="text" name="txtCorreo2" id="txtCorreo2" placeholder=" Correo electrónico">
+                    <input type="password" name="txtPassword2" id="txtPassword2" placeholder="Contraseña">
+                    <input type="password" name="txtConfirmarPassword" id="txtConfirmarPassword"
+                        placeholder="Confirmar Contraseña">
+
+                    <input class="btn btn-success" type="submit" value="Registrarse" />
+                </form>
+            </div>
+        </div>
+    </main>
+
+    {% include '/footer.html' %}

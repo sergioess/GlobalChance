@@ -3,8 +3,10 @@ from app import Bcrypt ,bcrypt, mail
 
 from flask import config, render_template, redirect, url_for, request, abort, flash, jsonify
 from sqlalchemy import desc
-from models.usuario import Usuario
 
+
+from models.usuario import Usuario
+from models.banner import Banner
 
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from forms import LoginForm, RegistroForm
@@ -12,15 +14,15 @@ from forms import LoginForm, RegistroForm
 from flask_mail import  Message
 from flask_session import Session
 
-
+ 
   
 # @login_required
 def home():
     # print("Actual logueado", current_user)
     # user = Usuario.query.filter_by(id=current_user.id).first()
+    bannersLista = Banner.get_Active()
 
-
-    return render_template('/home.html') 
+    return render_template('/home.html', bannersLista = bannersLista) 
 
 def index():
     
@@ -57,6 +59,37 @@ def frmRegistrar():
 
     return render_template("registro.html", form=registro)
 
+
+def frmRegistrar2():
+    _nombre = request.form.get('txtNombre')   
+    _correo = request.form.get('txtCorreo2')   
+    _password = request.form.get('txtPassword2')  
+    
+
+    print("Nombre Ingresado", _nombre)
+
+    print("El correo es: ", _correo)
+    if Usuario.validarUsuario(_correo):
+        
+        _password = bcrypt.generate_password_hash(_password).decode('utf-8')
+
+        usuario = Usuario()
+        usuario.nombre = _nombre
+        usuario.correo = _correo
+        usuario.password = _password
+        usuario.activo = 1
+        print(usuario)
+        usuario.save()
+
+        # mailtoUser(_nombre, _correo, )
+
+    else:
+        session.pop('_flashes', None)
+        flash(f'El usuario ya existe en la base de datos, por favor digite otro nombre', 'danger')
+        return redirect('/index.html')
+    return render_template("index.html")
+
+
 def frmlogin():
     login_form = LoginForm()
     if login_form.validate_on_submit():
@@ -80,7 +113,7 @@ def frmlogin():
         
             print("Usuario",user.nombre,  passUsuario)
         if user and bcrypt.check_password_hash(user.password, login_form.password.data):
-            flash('Bienvenido de Regreso', 'success')
+            
 
 
             n = login(_nombre)
@@ -95,7 +128,43 @@ def frmlogin():
 
     return render_template("login.html", form=login_form)
 
+def frmlogin2():
+    
+    _nombre = request.form.get('txtCorreo')   
+    _password = request.form.get('txtPassword')  
 
+    passIngresado=bcrypt.generate_password_hash('_password').decode('utf-8')
+    print("Ingresado", _nombre, _password,passIngresado)
+    print("Ingresado", passIngresado)
+    user = Usuario.query.filter_by(correo=_nombre).first()
+    
+    print(user)
+    if not user:
+        session.pop('_flashes', None)
+        flash(f'Usuario no encontrado en la Base de Datos!', 'danger')
+        return render_template("index.html")
+    else:
+        passUsuario = user.password
+        print("Encontrado")
+
+    
+        print("Usuario",user.nombre,  passUsuario)
+        print(bcrypt.check_password_hash(user.password, _password))
+        if user and bcrypt.check_password_hash(user.password, _password):
+            
+
+
+            n = login(_nombre)
+
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)     
+            return n       
+        else:
+            session.pop('_flashes', None)
+            flash(f'Inicio de Sesion incorrecto, verifique el Usuario y Contraseña!', 'danger')
+
+            return render_template("index.html")
 
     # return render_template('/login.html', form = login_form )    
 
@@ -118,7 +187,9 @@ def login(nombre):
 
     if(user.perfil==3):
         return redirect('/usuario')    
-    return render_template('home.html')
+
+    bannersLista = Banner.get_Active()
+    return render_template('home.html', bannersLista=bannersLista)
     #return 'You are now logged in!'       
 
 # def mailtoadmin():
@@ -133,4 +204,8 @@ def mailtoUser(nombre,  correo):
     msg.body = "Estimado " + str(nombre) + " su cuenta  ha sido creada."
     mail.send(msg)
 
-    
+def about():
+    return render_template('about.html')
+
+def home2():
+    return render_template('home2.html')
