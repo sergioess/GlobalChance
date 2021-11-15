@@ -5,15 +5,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-11 mt-2">
-      {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages%}
-      {% for category, msg in messages %}
-      <div class="alert alert-{{category}}">
-        {{ msg }}
-      </div>
-      {% endfor %}
-      {% endif %}
-      {% endwith %}
+
 
     </div>
   </div>
@@ -25,9 +17,9 @@
     <div class="card-header" style="background-color: #011f4b;">
       <div class="d-flex justify-content-between">
         <a class="btn btn-light btn-md" href="#" data-toggle="modal" data-target="#modalcreate">
-          <i class="fas fa-plus-circle"></i> Nuevo Usuario</a>
+          <i class="fas fa-plus-circle"></i>Registrar Temperatura</a>
 
-
+        {% include '/temperatura/modal/create.html' %}
 
       </div>
 
@@ -36,24 +28,29 @@
 
 
       <table class="table table-light p-0 my-0 " id="example">
-        <thead>
+        <tdead>
           <tr>
             <td>#</td>
-            <td>Nombre</td>
-            <td>Correo</td>
-            <td>Perfil</td>
-            <td>Estado</td>
-            <td>Acciones</td>
+            <td>Ciudad</td>
+            <td>Temperatura</td>
+            <td>Fecha</td>
           </tr>
-        </thead>
+        </tdead>
 
         <tbody>
-
+          {% for temp in temperaturaLista %}
+          <tr>
+            <td>#</td>
+            <td>{{ temp.id_ciudad }}</td>
+            <td>{{ temp.temperatura_aire }}</td>
+            <td>{{ temp.fecha_registro }}</td>
+          </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
   </div>
 </div>
 
-
+{% include '/temperatura/scripts.html' %}
 {% include '/footer.html' %}

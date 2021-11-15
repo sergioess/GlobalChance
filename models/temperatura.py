@@ -12,7 +12,7 @@ class Temperatura(database.Model):
 
     id = database.Column(database.Integer, primary_key=True)
     fecha_registro = database.Column(database.Date, nullable=False)
-    id_ciudad = database.Column(database.Integer, ForeignKey("ciudad.id"))
+    id_ciudad = database.Column(database.Integer, nullable=False)
     temperatura_aire = database.Column(database.Float, nullable=False)
     id_usuario = database.Column(database.Integer, nullable=False)
 
@@ -20,11 +20,11 @@ class Temperatura(database.Model):
     def __str__(self):
         return f"<Temperatura {self.id} {self.fecha_registro} {self.id_ciudad} {self.temperatura_aire} {self.id_usuario} >"
 
-    def __init__(self, id_ciudad, temperatura_aire, id_usuario):
-        self.fecha_registro = fecha_registro
+    def __init__(self, id_ciudad, temperatura_aire, id_usuario,fecha_registro ):
         self.id_ciudad = id_ciudad
         self.temperatura_aire = temperatura_aire
         self.id_usuario = id_usuario
+        self.fecha_registro = fecha_registro
         
 
 
@@ -39,7 +39,7 @@ class Temperatura(database.Model):
 
     def save(self):
 
-        print (self)
+        print ('Tempearatura desde Modelo', self)
         database.session.add(self)
         database.session.commit()
 

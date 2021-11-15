@@ -23,6 +23,7 @@ class Ciudad(database.Model):
 
     @staticmethod
     def get_all():
+        print("todos las ciudades")
         return Ciudad.query.all()
 
 

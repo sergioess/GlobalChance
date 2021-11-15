@@ -7,6 +7,7 @@ import os
 from flask_session import Session
 
 from models.temperatura import Temperatura
+from models.ciudad import Ciudad
 
 
 app = Flask(__name__)
@@ -19,18 +20,23 @@ app.config.from_object('config')
 def index():
     temperaturaLista = Temperatura.get_all()
     print(temperaturaLista)
+    ciudadLista = Ciudad.get_all()
+    print(ciudadLista)
     # return render_template('/temperatura/index.html', banner=temperaturaLista)
-    return render_template('/temperatura/index.html')    
+
+    return render_template('/temperatura/index.html', ciudadLista=ciudadLista, temperaturaLista=temperaturaLista)    
 
 
 
 # @login_required
 def store():
     _ciudad = request.form.get('txtCiudad')
-    _temperatura = request.form.get('txtTemperatura')
+    _rtemperatura = request.form.get('txtTemperatura')
     _usuario = request.form.get('txtUsuario')
-		  
-    temperatura = Temperatura(_ciudad, _temperatura, _usuario)
+
+	# print('Ingresado', _ciudad, _rtemperatura, _usuario)
+    date = datetime.now()	  
+    temperatura = Temperatura(_ciudad, _rtemperatura, _usuario, date)
     print(temperatura)
     if temperatura.save():
         return redirect('/temperatura')
