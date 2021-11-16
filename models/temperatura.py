@@ -2,7 +2,7 @@ from app import database
 from sqlalchemy import asc, desc
 from sqlalchemy import ForeignKey, DateTime, func
 from sqlalchemy.orm import relationship
-from datetime import date
+from datetime import datetime, date, time, timedelta
 from flask_login import current_user
 import sqlalchemy as sa
 
@@ -17,7 +17,8 @@ class Temperatura(database.Model):
     id_ciudad = database.Column(database.Integer, ForeignKey("ciudades.id"))
     temperatura_aire = database.Column(database.Float, nullable=False)
     id_usuario = database.Column(database.Integer, nullable=False)
-    year = database.Column(database.Integer, nullable=False)
+    year = database.Column(database.Integer, nullable=True)
+    
 
     temp_ciudad = database.relationship("Ciudad", backref='ciudades.id', lazy='joined')
 
@@ -30,7 +31,10 @@ class Temperatura(database.Model):
         self.temperatura_aire = temperatura_aire
         self.id_usuario = id_usuario
         self.fecha_registro = fecha_registro
+        today = date.today()
+        self.year = today.year
         
+
 
 
     @staticmethod
@@ -62,12 +66,12 @@ class Temperatura(database.Model):
     @staticmethod
     def getDatos(ciudad):
         # print("hey por aca")
-        temperatura = database.session.query(Temperatura.temperatura_aire).filter(Temperatura.id_ciudad==ciudad).all()
+        temperatura = database.session.query(Temperatura.temperatura_aire).filter(Temperatura.id_ciudad==ciudad).order_by(asc(Temperatura.year)).all()
 
         temperatura2 = database.session.query(
             Temperatura.year,
             func.avg(Temperatura.temperatura_aire).label('total')
-        ).filter(Temperatura.id_ciudad==ciudad).group_by(Temperatura.year).all()
+        ).filter(Temperatura.id_ciudad==ciudad).group_by(Temperatura.year).order_by(asc(Temperatura.year)).all()
         print("La consulta", temperatura2)
 
         # print(temperatura)
