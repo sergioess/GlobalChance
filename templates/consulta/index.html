@@ -1,0 +1,65 @@
+{% include '/header.html' %}
+{% include '/nav.html' %}
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-11 mt-2">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages%}
+            {% for category, msg in messages %}
+            <div class="alert alert-{{category}}">
+                {{ msg }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+        </div>
+    </div>
+    <br />
+    <div class=" bg-white  border-rounded p-0">
+        <h2>Banner</h2>
+    </div>
+
+
+
+    <div class="card shadow bg-white">
+        <div class="card-header">
+            <h3 class="card-title text-dark">Variación de Temperatura
+            </h3>
+            <div class="col-md">
+                <label for="txtDescripcion">Ciudad</label>
+            </div>
+            <div class="row">
+                <div class="col-md d-inline">
+                    <select class="selectpicker form-control" name="txtCiudad" id="selectBox">
+                        <option value=0>Seleccion</option>
+                        {% for ciudad in ciudadLista %}
+                        <option value="{{ciudad.id}}">
+                            {{ciudad.nombre_ciudad}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md d-inline">
+                    <button class="btn btn-primary" onclick="changeFunc();">Graficar</button>
+                </div>
+            </div>
+
+            <div class="card-tools">
+
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="chart">
+                <canvas id="myChart"
+                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% include '/consulta/scripts.html' %}
+{% include '/footer.html' %}

@@ -1,0 +1,167 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+
+<script type="text/javascript">
+
+
+    function changeFunc() {
+
+        const plugin = {
+            id: 'custom_canvas_background_color',
+            beforeDraw: (chart) => {
+                const ctx = chart.canvas.getContext('2d');
+                ctx.save();
+                ctx.globalCompositeOperation = 'destination-over';
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, chart.width, chart.height);
+                ctx.restore();
+            }
+        };
+
+        var periodos = [];
+        var datos3 = [];
+        var maximo3 = 0;
+        var mesActual = 0;
+        var yearActual = 0;
+        var dayActual = 0;
+        var selectBox = document.getElementById("selectBox");
+        var ciudad = selectBox.options[selectBox.selectedIndex].value;
+
+        $(document).ready(function () {
+
+
+            $.ajax({
+                url: '{{ url_for('temperatura_bp.datos') }}',
+                method: "POST",
+                data: {
+                    ciudad: ciudad,
+                    eldia: dayActual,
+
+                },
+                success: function (response) {
+                    var arreglo1 = response;
+
+                    for (var x = 0; x < arreglo1.length; x++) {
+
+                        datos3.push(arreglo1[x]);
+                        periodos.push(x + 1)
+
+                    }
+                    maximo3 = 50;
+
+                    generaGrafica3();
+                },
+            });
+
+
+        });
+
+
+
+
+
+
+        function generaGrafica3() {
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: periodos,
+                    datasets: [{
+                        label: 'Temperatura Ciudad °C',
+                        data: datos3,
+                        backgroundColor: [
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 50, 1)',
+                            'rgba(54, 40, 235, 1)',
+                            'rgba(255, 206, 150, 1)',
+                            'rgba(255, 192, 192, 1)',
+                            'rgba(153, 255, 255, 1)',
+                            'rgba(200, 80, 255, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 50, 1)',
+                            'rgba(54, 40, 235, 1)',
+                            'rgba(255, 206, 150, 1)',
+                            'rgba(255, 192, 192, 1)',
+                            'rgba(153, 255, 255, 1)',
+                            'rgba(200, 80, 255, 1)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    indexAxis: 'x',
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                    },
+                    scales: {
+                        x: {
+
+                            title: {
+                                display: true,
+                                text: 'periodos'
+                            },
+
+                        },
+                        y: {
+                            min: 0,
+                            max: maximo3,
+                            title: {
+                                display: true,
+                                text: 'Temperatura'
+                            },
+                            ticks: {
+                                // forces step size to be 50 units
+                                stepSize: 50000
+                            }
+                        },
+                    }
+                },
+                plugins: [plugin]
+
+            });
+        }
+    }
+</script>

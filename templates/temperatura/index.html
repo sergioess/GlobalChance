@@ -23,17 +23,15 @@
 
     </div>
     <div class="table-responsive bg-white container pt-2">
-
-
       <table class="table table-light p-0 my-0 " id="example">
-        <tdead>
+        <thead>
           <tr>
             <td>#</td>
             <td>Ciudad</td>
             <td>Temperatura</td>
             <td>Fecha</td>
           </tr>
-        </tdead>
+        </thead>
 
         <tbody>
           {% for temp in temperaturaLista %}
@@ -44,8 +42,10 @@
             <td>{{ temp.Temperatura.fecha_registro }}</td>
           </tr>
           {% endfor %}
+
         </tbody>
       </table>
+
     </div>
   </div>
 </div>

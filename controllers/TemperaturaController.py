@@ -48,3 +48,17 @@ def store():
 def destroy(temperatura_id):
     Temperatura.delete(temperatura_id)
     return redirect('/temperatura')
+
+
+def datos():
+    _ciudad = request.form.get('ciudad')
+    print("La ciudad que envia", _ciudad)
+    datos = Temperatura.getDatos(_ciudad)
+    datos2 = []
+    print(datos)
+    for x in datos:
+        
+        for y in x:
+            datos2.append(y)
+    print(datos2)
+    return jsonify(datos2)

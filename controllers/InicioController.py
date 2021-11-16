@@ -9,8 +9,9 @@ from flask_session import Session
 
 from models.usuario import Usuario
 from models.banner import Banner
+from models.ciudad import Ciudad
 
- 
+
   
 @login_required
 def home():
@@ -24,6 +25,9 @@ def index():
     
     return render_template('/index.html')
 
+def consultar():
+    ciudadLista = Ciudad.get_all()
+    return render_template('/consulta/index.html',ciudadLista= ciudadLista)
 
 
 def frmRegistrar2():

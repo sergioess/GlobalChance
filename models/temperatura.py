@@ -56,3 +56,10 @@ class Temperatura(database.Model):
 
         database.session.delete(temperaturaElimina)
         database.session.commit()
+
+    @staticmethod
+    def getDatos(ciudad):
+        # print("hey por aca")
+        temperatura = database.session.query(Temperatura.temperatura_aire).filter(Temperatura.id_ciudad==ciudad).all()
+        # print(temperatura)
+        return temperatura
