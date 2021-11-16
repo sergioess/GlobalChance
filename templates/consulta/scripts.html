@@ -39,12 +39,37 @@
 
                 },
                 success: function (response) {
+
                     var arreglo1 = response;
 
                     for (var x = 0; x < arreglo1.length; x++) {
 
                         datos3.push(arreglo1[x]);
-                        periodos.push(x + 1)
+
+
+                    }
+                    maximo3 = 50;
+
+
+                },
+            });
+
+            $.ajax({
+                url: '{{ url_for('temperatura_bp.getTheYear') }}',
+                method: "POST",
+                data: {
+                    ciudad: ciudad,
+                    eldia: dayActual,
+
+                },
+                success: function (response) {
+
+                    var arreglo1 = response;
+
+                    for (var x = 0; x < arreglo1.length; x++) {
+
+                        periodos.push(arreglo1[x]);
+
 
                     }
                     maximo3 = 50;

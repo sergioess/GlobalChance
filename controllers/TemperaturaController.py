@@ -55,10 +55,24 @@ def datos():
     print("La ciudad que envia", _ciudad)
     datos = Temperatura.getDatos(_ciudad)
     datos2 = []
-    print(datos)
+    datos3 = []
+    # print(datos)
     for x in datos:
-        
-        for y in x:
-            datos2.append(y)
-    print(datos2)
-    return jsonify(datos2)
+        datos3.append(x[1])
+
+    print("los datos3 son", datos3)
+    return jsonify(datos3)
+
+
+def getTheYear():
+    _ciudad = request.form.get('ciudad')
+    print("La ciudad que envia", _ciudad)
+    datos = Temperatura.getDatos(_ciudad)
+
+    datos3 = []
+    # print(datos)
+    for x in datos:
+        datos3.append(x[0])
+
+    print("los datos3 son", datos3)
+    return jsonify(datos3)    
