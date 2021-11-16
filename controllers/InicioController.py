@@ -1,18 +1,14 @@
 from flask import Flask, session
 from app import Bcrypt ,bcrypt, mail
-
 from flask import config, render_template, redirect, url_for, request, abort, flash, jsonify
 from sqlalchemy import desc
-
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from forms import LoginForm, RegistroForm
+from flask_mail import  Message
+from flask_session import Session
 
 from models.usuario import Usuario
 from models.banner import Banner
-
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from forms import LoginForm, RegistroForm
-
-from flask_mail import  Message
-from flask_session import Session
 
  
   

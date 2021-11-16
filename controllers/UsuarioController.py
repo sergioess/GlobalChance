@@ -1,19 +1,26 @@
 from flask import Flask, session
 from flask import config, render_template, redirect, url_for, request, abort, flash, jsonify
 from sqlalchemy import desc
-from models.usuario import Usuario
+
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 from app import Bcrypt ,bcrypt
 from flask_session import Session
+from flask_login import current_user
+
+from models.usuario import Usuario
+from models.banner import Banner
 
 @login_required
 def index():
-    
-    usuariosLista = Usuario.get_all_activo()
-    # print(usuariosLista)
-    return render_template('/usuario/index.html', usuarios=usuariosLista)
+    if (current_user.perfil == 3):
+        usuariosLista = Usuario.get_all_activo()
+        # print(usuariosLista)
+        return render_template('/usuario/index.html', usuarios=usuariosLista)
+    else:
+        bannersLista = Banner.get_Active()
 
+        return render_template('/home.html', bannersLista = bannersLista) 
 #  @login_required
 def store():
     _id_usuario = request.form.get('txtId')
