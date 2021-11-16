@@ -3,6 +3,7 @@ from sqlalchemy import asc, desc
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import date
+from flask_login import current_user
 
 from models.ciudad import Ciudad
 
@@ -12,9 +13,11 @@ class Temperatura(database.Model):
 
     id = database.Column(database.Integer, primary_key=True)
     fecha_registro = database.Column(database.Date, nullable=False)
-    id_ciudad = database.Column(database.Integer, nullable=False)
+    id_ciudad = database.Column(database.Integer, ForeignKey("ciudades.id"))
     temperatura_aire = database.Column(database.Float, nullable=False)
     id_usuario = database.Column(database.Integer, nullable=False)
+
+    temp_ciudad = database.relationship("Ciudad", backref='ciudades.id', lazy='joined')
 
 #este es el toString personalizado
     def __str__(self):
@@ -30,7 +33,10 @@ class Temperatura(database.Model):
 
     @staticmethod
     def get_all():
-        return Temperatura.query.all()
+        temperatura = database.session.query(Temperatura, Ciudad).join(Ciudad).filter(Temperatura.id_usuario==current_user.id).order_by(asc(Temperatura.id)).all()
+        # return Temperatura.query.all()
+        # print (temperatura)
+        return temperatura
 
 
     def get_by_id(id):
@@ -39,12 +45,12 @@ class Temperatura(database.Model):
 
     def save(self):
 
-        print ('Tempearatura desde Modelo', self)
+        # print ('Tempearatura desde Modelo', self)
         database.session.add(self)
         database.session.commit()
 
     def delete(id):
-        print(id)
+        # print(id)
         temperaturaElimina = Temperatura.query.filter_by(id=id).first()
         # print(temperaturaElimina)
 

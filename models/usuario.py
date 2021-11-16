@@ -95,7 +95,7 @@ class Usuario(UserMixin,database.Model):
     def validarUsuario(correo_enviado):
         return True
         usuario_existente = Usuario.query.filter_by(correo=correo_enviado).first()
-        print(correo_enviado)
+        # print(correo_enviado)
         if usuario_existente is not None:
             print("Usuario ya existe en la base de datos")
             return False

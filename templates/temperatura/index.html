@@ -10,10 +10,8 @@
     </div>
   </div>
   <br />
-  <div class="row justify-content-center">
-    <h2>Usuarios</h2>
-  </div>
-  <div class="border border-dark border-2 p-0">
+
+  <div class="border border-dark mt-4 border-2 p-0">
     <div class="card-header" style="background-color: #011f4b;">
       <div class="d-flex justify-content-between">
         <a class="btn btn-light btn-md" href="#" data-toggle="modal" data-target="#modalcreate">
@@ -41,9 +39,9 @@
           {% for temp in temperaturaLista %}
           <tr>
             <td>#</td>
-            <td>{{ temp.id_ciudad }}</td>
-            <td>{{ temp.temperatura_aire }}</td>
-            <td>{{ temp.fecha_registro }}</td>
+            <td>{{ temp.Ciudad.nombre_ciudad }}</td>
+            <td>{{ temp.Temperatura.temperatura_aire }}</td>
+            <td>{{ temp.Temperatura.fecha_registro }}</td>
           </tr>
           {% endfor %}
         </tbody>

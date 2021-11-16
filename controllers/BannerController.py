@@ -17,7 +17,7 @@ app.config.from_object('config')
 # @login_required
 def index():
     bannersLista = Banner.get_Active()
-    print(bannersLista)
+    # print(bannersLista)
     # return render_template('/banner/index.html', banner=bannersLista)
     return render_template('/banner/index.html', bannersLista = bannersLista)    
 
@@ -33,13 +33,13 @@ def store():
     tiempo = now.strftime("%Y%H%M%S")
 
     if(_archivo.filename != ''):
-        print('El Archivo es: ' , _archivo)
+        # print('El Archivo es: ' , _archivo)
         nuevoNombreFoto = tiempo + _archivo.filename
         _archivo.save("banner/" + nuevoNombreFoto)
 
    
     banner = Banner(nuevoNombreFoto, _titulo, _descripcion, True)
-    print(banner)
+    # print(banner)
     if banner.save():
         return redirect('/producto')
     else:

@@ -42,7 +42,7 @@ class Banner(database.Model):
 
     def save(self):
 
-        print (self)
+        # print (self)
         database.session.add(self)
         database.session.commit()
 

@@ -19,10 +19,9 @@ app.config.from_object('config')
 # @login_required
 def index():
     temperaturaLista = Temperatura.get_all()
-    print(temperaturaLista)
+    # print(temperaturaLista)
     ciudadLista = Ciudad.get_all()
-    print(ciudadLista)
-    # return render_template('/temperatura/index.html', banner=temperaturaLista)
+    # print(ciudadLista)
 
     return render_template('/temperatura/index.html', ciudadLista=ciudadLista, temperaturaLista=temperaturaLista)    
 
@@ -37,7 +36,7 @@ def store():
 	# print('Ingresado', _ciudad, _rtemperatura, _usuario)
     date = datetime.now()	  
     temperatura = Temperatura(_ciudad, _rtemperatura, _usuario, date)
-    print(temperatura)
+    # print(temperatura)
     if temperatura.save():
         return redirect('/temperatura')
     else:

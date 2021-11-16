@@ -16,7 +16,7 @@ from flask_session import Session
 
  
   
-# @login_required
+@login_required
 def home():
     # print("Actual logueado", current_user)
     # user = Usuario.query.filter_by(id=current_user.id).first()
@@ -28,36 +28,6 @@ def index():
     
     return render_template('/index.html')
 
-def frmRegistrar():
-    registro = RegistroForm()
-    
-    if registro.validate_on_submit():
-        print(registro.nombre.data)
-        _nombre = registro.nombre.data
-        _correo = registro.correo.data
-        print("El correo es: " + _correo)
-        if Usuario.validarUsuario(_correo):
-            
-            _password = bcrypt.generate_password_hash(registro.password.data).decode('utf-8')
-
-            usuario = Usuario()
-            usuario.nombre = _nombre
-            usuario.correo = _correo
-            usuario.password = _password
-            usuario.activo = 1
-            print(usuario)
-            usuario.save()
-
-            # mailtoUser(_nombre, _correo, )
-
-        else:
-            session.pop('_flashes', None)
-            flash(f'El usuario ya existe en la base de datos, por favor digite otro nombre', 'danger')
-            return redirect('/frmregistro')
-        return render_template("index.html")
-
-
-    return render_template("registro.html", form=registro)
 
 
 def frmRegistrar2():
@@ -90,43 +60,6 @@ def frmRegistrar2():
     return render_template("index.html")
 
 
-def frmlogin():
-    login_form = LoginForm()
-    if login_form.validate_on_submit():
-        _nombre = login_form.username.data
-        _password = login_form.password.data
-
-        passIngresado=bcrypt.generate_password_hash('_password').decode('utf-8')
-        print("Ingresado", _nombre, _password,passIngresado)
-        print("Ingresado", passIngresado)
-        user = Usuario.query.filter_by(correo=_nombre).first()
-        
-        print(user)
-        if not user:
-            session.pop('_flashes', None)
-            flash(f'Usuario no encontrado en la Base de Datos!', 'danger')
-            
-        else:
-            passUsuario = user.password
-            print("Encontrado")
-
-        
-            print("Usuario",user.nombre,  passUsuario)
-        if user and bcrypt.check_password_hash(user.password, login_form.password.data):
-            
-
-
-            n = login(_nombre)
-
-            next = request.args.get('next', None)
-            if next:
-                return redirect(next)     
-            return n       
-        else:
-            session.pop('_flashes', None)
-            flash(f'Inicio de Sesion incorrecto, verifique el Usuario y Contraseña!', 'danger')
-
-    return render_template("login.html", form=login_form)
 
 def frmlogin2():
     
@@ -134,11 +67,11 @@ def frmlogin2():
     _password = request.form.get('txtPassword')  
 
     passIngresado=bcrypt.generate_password_hash('_password').decode('utf-8')
-    print("Ingresado", _nombre, _password,passIngresado)
-    print("Ingresado", passIngresado)
+    # print("Ingresado", _nombre, _password,passIngresado)
+    # print("Ingresado", passIngresado)
     user = Usuario.query.filter_by(correo=_nombre).first()
     
-    print(user)
+    # print(user)
     if not user:
         session.pop('_flashes', None)
         flash(f'Usuario no encontrado en la Base de Datos!', 'danger')
@@ -148,8 +81,8 @@ def frmlogin2():
         print("Encontrado")
 
     
-        print("Usuario",user.nombre,  passUsuario)
-        print(bcrypt.check_password_hash(user.password, _password))
+        # print("Usuario",user.nombre,  passUsuario)
+        # print(bcrypt.check_password_hash(user.password, _password))
         if user and bcrypt.check_password_hash(user.password, _password):
             
 
@@ -169,7 +102,7 @@ def frmlogin2():
     # return render_template('/login.html', form = login_form )    
 
 
-# @login_required
+@login_required
 def logout():
     logout_user()
     return render_template('index.html') 
@@ -178,8 +111,8 @@ def logout():
 
 def login(nombre):
  
-    print(bcrypt.generate_password_hash('_password'))
-    print(nombre)
+    # print(bcrypt.generate_password_hash('_password'))
+    # print(nombre)
     user = Usuario.query.filter_by(correo=nombre).first()
     #print(user)
 
