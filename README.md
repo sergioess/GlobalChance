@@ -1,5 +1,13 @@
 <h2>GlobalChance </h2>
 
+<p> GlobalChance se enfoca en generar conciencia ambiental, permitirá visualizar datos verídicos de los cambios de temperatura a nivel nacional. Dirigido a la población absoluta, niños, jóvenes y mayores.
+</p>
+<p>
+  Es bien sabido que estos datos se pueden visualizar en tiempo real en las páginas de información pública.
+GlobalChange le ayuda a visualizar los datos de forma dinámica y sencilla además, incentiva a la comunidad a hacer un cambio en su propia familia dándole ideas útiles para hacerlo, para disminuir la emisión de GEI.
+
+</p>
+
 <h3>Descripción del Proyecto</h3>
 
 <p>El proyecto se desarrolló en Lenguaje Python haciendo uso del Framework Flask. La base de datos seleccionada para el proyecto fue PostgresSQL, la cual fue desplegada en la plataforma Heroku de forma gratuita. </p>
