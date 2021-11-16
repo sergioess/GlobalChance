@@ -6,10 +6,10 @@
 
         {% if current_user.rol == 'Tendero' %}
         <h3> <a class="nav-link text-light pr-1 font-weight-bold" href="{{ url_for('inicio_bp.home') }}" tabindex="-1"
-                aria-disabled="true">TecnoAmbiental</a> </h3>
+                aria-disabled="true">GlobalChance</a> </h3>
         {% else %}
         <h3> <a class="nav-link text-light pr-1 font-weight-bold" href="{{ url_for('usuario_bp.index') }}" tabindex="-1"
-                aria-disabled="true">TecnoAmbiental</a> </h3>
+                aria-disabled="true">GlobalChance</a> </h3>
         {% endif %}
         <button class="navbar-toggler" data-target="#navbarNavDropdown" data-toggle="collapse" aria-controls="my-nav"
             aria-expanded="false" aria-label="Toggle navigation">
